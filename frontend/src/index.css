@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #0b0e1a;
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+.font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Flight path signature animation — dot travels the route on load */
+@keyframes flyDot {
+  0%   { offset-distance: 0%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.flight-dot {
+  offset-path: path('M20,150 C90,150 110,40 190,40 C270,40 260,110 340,110 C420,110 410,20 480,20');
+  animation: flyDot 4.5s ease-in-out infinite;
+}
+@keyframes dashTravel {
+  to { stroke-dashoffset: -1000; }
+}
+.flight-path-line {
+  stroke-dasharray: 6 8;
+  animation: dashTravel 20s linear infinite;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.7s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .flight-dot, .flight-path-line, .fade-up { animation: none !important; opacity: 1 !important; }
+}
+
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #1a1a2e; }
+::-webkit-scrollbar-thumb { background: #6c63ff; border-radius: 3px; }
+
+/* Visible keyboard focus everywhere (accessibility, and looks intentional) */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 2px;
+}
+
+/* Navbar: desktop links visible, mobile toggle hidden by default */
+.navbar-links {
+  display: flex;
+  gap: 8px;
+}
+.navbar-toggle {
+  display: none;
+}
+.navbar-mobile-menu {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-toggle {
+    display: block !important;
+  }
+  .navbar-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #0f0f1a;
+    border-bottom: 1px solid #2d2d4e;
+    padding: 12px;
+  }
+}
+
+/* Skeleton shimmer used while results are loading */
+.skeleton-shimmer {
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-shimmer { animation: none; opacity: 0.7; }
+}
